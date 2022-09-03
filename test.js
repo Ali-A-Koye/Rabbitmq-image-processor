@@ -13,6 +13,7 @@ app.use(async (req, res, next) => {
     process.exit(1);
   }
 });
+
 app.use((req, res, next) => {
   next(creatError.NotFound());
 });
