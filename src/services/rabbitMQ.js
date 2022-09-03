@@ -31,15 +31,6 @@ class MessageBroker {
         if (!this.connection) {
             await this.init()
         }
-        if (this.queues[queue]) {
-            const existingHandler = _.find(this.queues[queue], h => h === handler)
-            if (existingHandler) {
-                return () => this.unsubscribe(queue, existingHandler)
-            }
-            this.queues[queue].push(handler)
-            return () => this.unsubscribe(queue, handler)
-        }
-
         await this.channel.assertQueue(queue, { durable: true })
         this.channel.bindQueue(queue, exchange, bindingKey)
         this.queues[queue] = [handler]

@@ -39,7 +39,7 @@ const saveImage= (data) => {
 // your routes here
 app.post("/upload", async (req, res) => {
   const { data } = req.files.image;
-  try {
+  try { 
     const message = await saveImage(data)
     await publishToExchange(req.RMQProducer, {
       message,
